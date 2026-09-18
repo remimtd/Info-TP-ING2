@@ -1,52 +1,62 @@
-package modele;
-
 import java.util.Scanner;
 
-public class Utilisateur {
-    //instances
-    protected String email;
-    protected String motdepasse;
-    protected String nom;
-
-    //constructeur pour initialiser
-    public Utilisateur(String email, String motdepasse, String nom){
-        this.email = email;
-        this.motdepasse = motdepasse;
-        this.nom = nom;
+class Client {
+    private String nom;
+    private String adresse;
+    private String choix;
+    Scanner scanner =  new Scanner(System.in);
+    //Le client entre ses infos, son nom, ses choix et son adresse
+    public void infos(){
+        System.out.println("Entrez votre nom :");
+        nom = scanner.nextLine();
+        System.out.println("Entrez vos choix :");
+        choix = scanner.nextLine();
+        System.out.println("Entrez votre adresse");
+        adresse = scanner.nextLine();
     }
+}
 
-    public void seConnecter() {
-        Scanner scanner = new Scanner(System.in);
-        boolean connecte = false;
 
-        while (!connecte) {
-            System.out.print("Entrez votre email : ");
-            String mailSaisi = scanner.nextLine();
-            System.out.print("Entrez votre mot de passe : ");
-            String mdpSaisi = scanner.nextLine();
-
-            if (this.email.equals(mailSaisi) && this.motdepasse.equals(mdpSaisi)) {
-                System.out.println("Connexion réussie. Bienvenue " + this.nom + " !");
-                connecte = true;
-            } else {
-                System.out.println("Identifiants incorrects, réessayez.\n");
-            }
+class Payement{
+    //Banque du client
+    private double banque;
+    public int prix;
+    public String payement;
+    public String choix;
+    public void payer(){
+        System.out.println("Montant total : "+ prix);
+        System.out.println("Payez par carte ");
+        while(payement == "Refusé" || choix == "Abandonner"){
+            System.out.println("Paiyement refusé veuillez réassayer");
+        }
+        if(payement == "Accepté"){
+            banque = banque - prix;
+            System.out.println("Paiyement accepté et commande livrée");
         }
     }
+}
 
-    public void seDeconnecter() {
-        System.out.println(this.nom + " est déconnecté");
+class Livreur {
+    public String commande;
+    public String livreur;
+    public void chercher(){
+        while(livreur!="Found"){
+            System.out.println("A la recherche d'un livreur");
+        }
+        if(livreur=="Found"){
+            System.out.println("Livreur trouvé");
+        }
     }
+}
 
-    //permet de changer le profil de l'utilisateur (nouveau mdp ou nouveau nom)
-    public void modifierProfil(String nouveauNom, String nouveauMdp){
-        this.nom = nouveauNom;
-        this.motdepasse = nouveauMdp;
-        System.out.println("Nouveau nom :" +this.nom); //affichage du nom, pas du mdp
-    }
-
-    //getter poour avoir le nom de la personne (car instance privée)
-    public String getNom(){
-        return this.nom;
+class Choix{
+    public String infos;
+    public String choix;
+    public void choisir(){
+        System.out.println("Choisissez votre commande");
+        System.out.println("Infos de la commande : "+ infos);
+        if(choix=="Validé"){
+            System.out.println("La commande est livrée");
+        }
     }
 }
